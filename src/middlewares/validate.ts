@@ -20,7 +20,7 @@ export const validate = (schema: ZodType) => {
                  message: issue.message,
              }));
 
-             res.status(400).json({ message: "잘못된 입력값입니다.", errorMessage});
+             res.status(400).json({ message: "잘못된 입력값입니다.", errors: errorMessage});
          }
 
 
