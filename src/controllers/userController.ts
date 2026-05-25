@@ -36,6 +36,24 @@ const createUser = async (req: Request, res: Response) => {
     res.status(201).json(userData);
 
     } catch (error) {
+
+        if (error instanceof Error) {
+            switch (error.message) {
+                case "ALREADY_EXISTS_USERNAME":
+                    res.status(409).json({ error: "이미 사용중인 아이디입니다. "});
+                    return;
+                case "ALREADY_EXISTS_EMAIL":
+                    res.status(409).json({ error: "이미 가입된 이메일입니다. "});
+                    return;
+                case "ALREADY_EXISTS_NICKNAME":
+                    res.status(409).json({ error: "이미 사용 중인 닉네임입니다. "});
+                    return;
+                default:
+                    console.log(error);
+                    res.status(500).json({ message: "유저 생성 중 오류가 발생했습니다. "});
+            }
+        }
+
         console.log(error);
         res.status(500).json({ message: "유저 생성 중 오류가 발생했습니다." });
     }
