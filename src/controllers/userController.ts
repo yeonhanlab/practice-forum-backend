@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import { UserCreateInput } from "../generated/prisma/models/User.ts";
 import userService from "../services/userService.ts";
+import bcrypt from "bcrypt";
+import passwordUtil from "../utils/password/passwordUtil.ts";
+
 
 const createUser = async (req: Request, res: Response) => {
 
@@ -18,7 +21,7 @@ const createUser = async (req: Request, res: Response) => {
 
     const userData: UserCreateInput = {
         username,
-        password,
+        password: await passwordUtil.hashPassword(password),
         name,
         nickname,
         email,
