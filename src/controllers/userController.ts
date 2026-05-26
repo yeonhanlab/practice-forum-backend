@@ -3,6 +3,7 @@ import { UserCreateInput } from "../generated/prisma/models/User.ts";
 import userService from "../services/userService.ts";
 import bcrypt from "bcrypt";
 import passwordUtil from "../utils/password/passwordUtil.ts";
+import { LoginInputType } from "../schemas/user/login.ts";
 
 
 const createUser = async (req: Request, res: Response) => {
@@ -54,14 +55,26 @@ const createUser = async (req: Request, res: Response) => {
             }
         }
 
+
         console.log(error);
         res.status(500).json({ message: "유저 생성 중 오류가 발생했습니다." });
     }
 
 };
 
+const login = (req: Request, res: Response) => {
+    // login 이라는 기능은, 들어온 비밀번호 값과 데이터베이스에서 조회해서 가져온 비밀번호 값을
+    // 비교해야 함.
+    // 뭔가를 Controller에서 해주기 보다, DB에 값을 가져오는게 우선되므로
+    // 그냥 service로 바로 보냄.
+    const loginData: LoginInputType = req.body;
+
+    const result = userService.login(loginData);
+}
+
 
 
 export default {
     createUser,
+    login,
 };
