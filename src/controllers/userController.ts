@@ -79,4 +79,5 @@ const login = (req: Request, res: Response) => {
 
 export default {
     createUser,
-};ㅏ
+    login,
+};

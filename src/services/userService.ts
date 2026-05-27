@@ -38,7 +38,7 @@ const login = async (data: LoginInputType) => {
         },
     });
 
-    if (!user || user.deleteAt ) {
+    if (!user || user.deletedAt ) {
         throw new Error("INVALID_CREDENTIALS");
     }
 
