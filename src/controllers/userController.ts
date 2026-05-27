@@ -70,9 +70,16 @@ const createUser = async (req: Request, res: Response) => {
 
 };
 
-const login = (req: Request, res: Response) => {
+const login = async (req: Request, res: Response) => {
+    try {
     const loginData: LoginInputType = req.body;
-    const result = userService.login(loginData);
+    const result = await userService.login(loginData);
+
+    res.status(200).json({
+        message: "로그인에 성공했습니다.",
+        data: result,
+    });
+    } catch (error) {}
 };
 
 
