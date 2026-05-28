@@ -32,7 +32,7 @@ const createUser = async (data: UserCreateInput) => {
 };
 
 const login = async (data: LoginInputType) => {
-    try { const user = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
         where: {
             username: data.username,
 
@@ -57,10 +57,6 @@ const login = async (data: LoginInputType) => {
             user: safeUserInfo,
             token,
         };
-
-    } catch (error) {
-
-    }
 
 
 };
